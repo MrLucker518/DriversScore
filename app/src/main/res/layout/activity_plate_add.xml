@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="5dp">
+
+        <ImageView
+            android:id="@+id/ivCar"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/sedan_standard"
+            android:contentDescription="Car" />
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:textColor="@android:color/secondary_text_light"
+            android:textColorHint="@android:color/secondary_text_light">
+
+            <EditText
+                android:id="@+id/etPlateNum"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/plateNum"
+                android:inputType="textCapCharacters"
+                android:textColor="@android:color/secondary_text_light"
+                android:textColorHint="@android:color/secondary_text_light" />
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tvRegion"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:gravity="center"
+            android:text="@string/region"
+            android:textColor="@android:color/secondary_text_light"
+            android:textColorHint="@android:color/secondary_text_light"
+            android:textSize="16sp" />
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:textColor="@android:color/secondary_text_light"
+            android:textColorHint="@android:color/secondary_text_light">
+
+            <EditText
+                android:id="@+id/etMaker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/maker"
+                android:inputType="text"
+                android:textColor="@android:color/secondary_text_light"
+                android:textColorHint="@android:color/secondary_text_light" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Spinner
+            android:id="@+id/spColor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="33dp"
+            android:textColor="@android:color/secondary_text_light"
+            android:textColorHint="@android:color/secondary_text_light" />
+
+        <Spinner
+            android:id="@+id/spBodyType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="33dp"
+            android:textColor="@android:color/secondary_text_light"
+            android:textColorHint="@android:color/secondary_text_light" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btnSubmit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="24dp"
+            android:background="@color/colorPrimary"
+            android:padding="12dp"
+            android:text="@string/field_save"
+            android:textColor="@color/colorBrightBackground" />
+
+    </LinearLayout>
+</ScrollView>

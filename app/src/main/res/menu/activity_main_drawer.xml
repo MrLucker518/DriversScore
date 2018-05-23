@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_manage"
+            android:icon="@drawable/menu_manage"
+            android:title="@string/field_tools" />
+    </group>
+    <item android:title="@string/field_communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_sync"
+                android:icon="@android:drawable/stat_notify_sync_noanim"
+                android:tint="@android:color/black"
+                android:title="@string/field_sync" />
+        </menu>
+    </item>
+</menu>
