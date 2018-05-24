@@ -160,7 +160,7 @@ public class PlateAddActivity extends AppCompatActivity {
             cancel = true;
         }
 
-        if (sPlateNum.length() > 6 && sPlateNum.length() < 9) {
+        if (sPlateNum.length() != 7 && sPlateNum.length() != 8) {
             etPlateNum.setError(getString(R.string.error_plate_number));
             focusView = etPlateNum;
             cancel = true;
