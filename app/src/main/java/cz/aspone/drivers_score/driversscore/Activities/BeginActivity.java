@@ -60,7 +60,7 @@ public class BeginActivity extends AppCompatActivity {
         ds.setPlateIsProcessing(false);
         ds.setFirstSync(true);
         ds.setSyncInProgress(false);
-        ds.setlastSawPlateNum("");
+        ds.setLastSawPlateNum("");
     }
 
     private void checkLogged() {

@@ -126,11 +126,11 @@ class JSONParser {
     static Plate parsePlate(JSONObject object) {
         Plate plate = new Plate();
         try {
-            plate = new Plate(object.getInt("Plate_ID"), object.getString("PlateNumber")
+            plate = new Plate(object.getInt("PlateID"), object.getString("PlateNumber")
                     , object.getString("CarColor"), Region.fromString(object.getString("Region"))
                     , object.getString("BodyType"), object.getString("Maker")
-                    , General.getDateFromString(object.getString("DateChanged")), object.getInt("User_ID")
-                    , Loader.getUser(), object.getDouble("Score"));
+                    , General.getDateFromString(object.getString("DateChanged")), object.getInt("UserID")
+                    , Loader.getUser(), object.getDouble("ScoreAvg"));
         } catch (JSONException | ParseException e) {
             Log.d("JSONPr => parsePlate", e.getMessage());
         }

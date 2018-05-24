@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 
+import java.util.Map;
+
 import cz.aspone.drivers_score.driversscore.Activities.MainActivity;
 import cz.aspone.drivers_score.driversscore.BO.Plate;
 import cz.aspone.drivers_score.driversscore.BO.User;
@@ -237,25 +239,41 @@ public class AsyncLoader {
 
         @Override
         protected void onPostExecute(Plate result) {
-            if (result != null) {
+            DriversScore ds = ((DriversScore) activity.getApplication());
 
-                String speechResult;
-                RenderHelper helper = new RenderHelper(activity);
-                Plate tmpResult = helper.searchPlate(result.getPlateNumber());
-                if (tmpResult != null) {
-                    int nMyScore = Loader.getMyScore(tmpResult.getPlateNumber());
-                    if (nMyScore == 0) {
-                        helper.promptSpeechInput(result);
+            if (result != null) {
+                if (!ds.getLastSawPlateNum().equals(result.getPlateNumber())) {
+                    ds.setLastSawPlateNum(result.getPlateNumber());
+
+                    RenderHelper helper = new RenderHelper(activity);
+                    //long startTime = System.nanoTime();
+                    Plate tmpResult = helper.searchPlate(result.getPlateNumber());
+                    //long endTime = System.nanoTime();
+
+                    //long MethodDuration = (endTime - startTime);
+
+                    //Log.d("StartTime", String.valueOf(startTime / 1000000));
+                    //Log.d("EndTime", String.valueOf(endTime / 1000000));
+                    //Log.d("DurationTime", String.valueOf(MethodDuration / 1000000));
+
+                    if (tmpResult != null) {
+                        int nMyScore = Loader.getMyScore(tmpResult.getPlateNumber());
+                        if (nMyScore == 0) {
+                            helper.promptSpeechInput(result);
+                        }
+                        helper.stopTimer();
+                        helper.setupSpeech(General.formatSpeechOutput("Moje hodnocení je:", (double) nMyScore, "Celkové hodnocení je:", tmpResult.getScoreAvg(), activity));
+                        helper.setupTimer(5000);
+                    } else {
+                        Map<String, ?> settings = SavedSharedPreferences.getSettings(activity);
+                        if (Integer.valueOf(settings.get(SavedSharedPreferences.KEY_PREF_PLATE_COMPARE).toString()) != 1) {
+                            result.save();
+                            helper.promptSpeechInput(result);
+                        }
                     }
-                    helper.stopTimer();
-                    helper.setupSpeech(General.formatSpeechOutput("Moje hodnocení je:", (double) nMyScore, "Celkové hodnocení je:", tmpResult.getScoreAvg(), activity));
-                    helper.setupTimer(5000);
-                } else {
-                    result.save();
-                    helper.promptSpeechInput(result);
                 }
             }
-            ((DriversScore) activity.getApplication()).setPlateIsProcessing(false);
+            ds.setPlateIsProcessing(false);
         }
     }
 
@@ -266,9 +284,9 @@ public class AsyncLoader {
         protected Plate doInBackground(String... params) {
             Plate result = null;
             try {
-                result = api.getPlateNumber(params[0], user);
+                result = api.PlateLoad(params[0]);
             } catch (Exception e) {
-                Log.d("AsyncGetPlateNumber", e.getMessage());
+                Log.d("PlateLoad", e.getMessage());
             }
             return result;
         }
@@ -285,8 +303,8 @@ public class AsyncLoader {
             DriversScore ds = ((DriversScore) activity.getApplication());
 
             if (result != null) {
-                if (!ds.getlastSawPlateNum().equals(result.getPlateNumber())) {
-                    ds.setlastSawPlateNum(result.getPlateNumber());
+                if (!ds.getLastSawPlateNum().equals(result.getPlateNumber())) {
+                    ds.setLastSawPlateNum(result.getPlateNumber());
 
                     RenderHelper helper = new RenderHelper(activity);
                     Plate tmpResult = Loader.loadPlateByNumber(result.getPlateNumber());
@@ -306,6 +324,10 @@ public class AsyncLoader {
                 }
             }
             ds.setPlateIsProcessing(false);
+
+            //long endTime = System.nanoTime();
+
+            //Log.d("EndTimeAsync", String.valueOf(endTime / 1000000));
         }
     }
 }

@@ -60,11 +60,11 @@ public class DriversScore extends Application {
         this.updatedPlate = updatedPlate;
     }
 
-    public String getlastSawPlateNum() {
-        return lastSawPlateNum;
+    public String getLastSawPlateNum() {
+        return lastSawPlateNum != null ? lastSawPlateNum : "";
     }
 
-    public void setlastSawPlateNum(String lastSawPlateNum) {
+    public void setLastSawPlateNum(String lastSawPlateNum) {
         this.lastSawPlateNum = lastSawPlateNum;
     }
 
